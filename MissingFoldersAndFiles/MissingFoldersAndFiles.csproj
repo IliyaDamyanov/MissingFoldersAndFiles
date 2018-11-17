@@ -42,14 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InnerPathDuplicationCleaner.cs" />
-    <Compile Include="IReader.cs" />
-    <Compile Include="IWriter.cs" />
+    <Compile Include="Engine.cs" />
+    <Compile Include="MissingPathsFinder.cs" />
+    <Compile Include="Abstractions\IReader.cs" />
+    <Compile Include="Abstractions\IWriter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FolderStructure.cs" />
-    <Compile Include="FileReader.cs" />
-    <Compile Include="FileWriter.cs" />
+    <Compile Include="Utils\ConsoleReader.cs" />
+    <Compile Include="Utils\ConsoleWriter.cs" />
+    <Compile Include="Utils\FileReader.cs" />
+    <Compile Include="Utils\FileWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

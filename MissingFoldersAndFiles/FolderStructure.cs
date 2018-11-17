@@ -1,19 +1,22 @@
-﻿using System;
-using System.Collections;
+﻿using MissingFoldersAndFiles.Abstractions;
+using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace MissingFoldersAndFiles
 {
     public class FolderStructure
     {
-        private Hashtable paths;
+        private readonly IWriter writer;
+        private IDictionary<string, string> paths;
 
-        public FolderStructure()
+        public FolderStructure(IWriter writer)
         {
-            this.paths = new Hashtable();
+            this.paths = new Dictionary<string, string>();
+            this.writer = writer;
         }
 
-        public Hashtable DirSearch(string entryFolder)
+        public IDictionary<string, string> AllPathsFinder(string entryFolder)
         {
             string currentFolder = entryFolder;
 
@@ -25,14 +28,15 @@ namespace MissingFoldersAndFiles
                     foreach (string file in Directory.GetFiles(folder))
                     {
                         paths.Add(file, "file");
-                        string filePath = file + Environment.NewLine;
                     }
-                    DirSearch(folder);
+                    AllPathsFinder(folder);
                 }
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception.Message);
+                this.writer.Write(exception.Message);
+
+                throw new Exception("FolderStructure exception");
             }
 
             return paths;

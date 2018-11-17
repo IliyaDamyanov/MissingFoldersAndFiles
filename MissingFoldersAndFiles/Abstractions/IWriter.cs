@@ -1,4 +1,4 @@
-﻿namespace MissingFoldersAndFiles
+﻿namespace MissingFoldersAndFiles.Abstractions
 {
     public interface IWriter
     {

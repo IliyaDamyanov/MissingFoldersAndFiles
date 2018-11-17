@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using MissingFoldersAndFiles.Utils;
+using System;
 
 namespace MissingFoldersAndFiles
 {
@@ -8,28 +7,16 @@ namespace MissingFoldersAndFiles
     {
         static void Main(string[] args)
         {
-            FolderStructure originalStructure = new FolderStructure();
-            ICollection originalPathsKeys = originalStructure.DirSearch(@"C:\Users\IliyaDamyanov\Desktop\New folder (5)").Keys;
-            IList<string> originalPaths = new List<string>(originalPathsKeys.Count);
-            foreach (var pathString in originalPathsKeys)
+            ConsoleWriter consoleWriter = new ConsoleWriter();
+            Engine engine = new Engine(consoleWriter, new FileWriter("MissingPaths.txt"), new ConsoleReader());
+            try
             {
-                originalPaths.Add(pathString.ToString());
+                engine.Start();
             }
-
-
-            FolderStructure copiedStructure = new FolderStructure();
-            Hashtable copiedPathsHashTable = copiedStructure.DirSearch("");
-            foreach (var path in originalPaths)
+            catch (Exception exception)
             {
-                if (!copiedPathsHashTable.ContainsKey(path))
-                {
-                    IWriter txtWriter = new FileWriter();
-                    txtWriter.Write(path);
-                }
+                consoleWriter.Write(exception.Message);
             }
-
-            InnerPathDuplicationCleaner innerPathDuplicationCleaner = new InnerPathDuplicationCleaner();
-            innerPathDuplicationCleaner.Clean();
         }
     }
 }
