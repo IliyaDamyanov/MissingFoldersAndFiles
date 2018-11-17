@@ -8,7 +8,13 @@ namespace MissingFoldersAndFiles
         static void Main(string[] args)
         {
             ConsoleWriter consoleWriter = new ConsoleWriter();
-            Engine engine = new Engine(consoleWriter, new FileWriter("MissingPaths.txt"), new ConsoleReader());
+            ConsoleReader consoleReader = new ConsoleReader();
+            consoleWriter.Write("Enter the original path.");
+            string originalPath = consoleReader.Read();
+            consoleWriter.Write("Enter the copied path.");
+            string copiedPath = consoleReader.Read();
+
+            Engine engine = new Engine(consoleWriter, new FileWriter("MissingPaths.txt"), consoleReader, originalPath, copiedPath);
             try
             {
                 engine.Start();

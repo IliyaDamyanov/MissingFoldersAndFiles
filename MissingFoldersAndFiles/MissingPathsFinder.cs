@@ -9,24 +9,26 @@ namespace MissingFoldersAndFiles
         private readonly IWriter writer;
         private readonly ICollection<string> originalPaths;
         IDictionary<string, string> copiedPaths;
+        private readonly string originalPreFolderPath;
 
-
-        public MissingPathsFinder(IWriter writer, ICollection<string> originalPaths, IDictionary<string, string> copiedPaths)
+        public MissingPathsFinder(IWriter writer, ICollection<string> originalPaths, IDictionary<string, string> copiedPaths, string originalPreFolderPath)
         {
             this.writer = writer;
             this.originalPaths = originalPaths;
             this.copiedPaths = copiedPaths;
+            this.originalPreFolderPath = originalPreFolderPath;
         }
 
         private string AllMissingPaths()
         {
             string allPaths = string.Empty;
             // da se otreje ot stringa chastta predi foldera
-            foreach (var path in originalPaths)
+            foreach (string path in originalPaths)
             {
+                
                 if (!copiedPaths.ContainsKey(path))
                 {
-                    allPaths += (path + Environment.NewLine);
+                    allPaths += (this.originalPreFolderPath + path + Environment.NewLine);
                 }
             }
 

@@ -9,11 +9,13 @@ namespace MissingFoldersAndFiles
     {
         private readonly IWriter writer;
         private IDictionary<string, string> paths;
+        private readonly int preFolderPathLenght;
 
-        public FolderStructure(IWriter writer)
+        public FolderStructure(IWriter writer, int preFolderPathLenght)
         {
             this.paths = new Dictionary<string, string>();
             this.writer = writer;
+            this.preFolderPathLenght = preFolderPathLenght;
         }
 
         public IDictionary<string, string> AllPathsFinder(string entryFolder)
@@ -24,10 +26,11 @@ namespace MissingFoldersAndFiles
             {
                 foreach (string folder in Directory.GetDirectories(currentFolder))
                 {
-                    paths.Add(folder, "folder");
+                    int lastSlashIndex = currentFolder.LastIndexOf('\\');
+                    paths.Add(folder.Substring(lastSlashIndex, this.preFolderPathLenght - 1), "folder");
                     foreach (string file in Directory.GetFiles(folder))
                     {
-                        paths.Add(file, "file");
+                        paths.Add(file.Substring(lastSlashIndex, this.preFolderPathLenght - 1), "file");
                     }
                     AllPathsFinder(folder);
                 }
