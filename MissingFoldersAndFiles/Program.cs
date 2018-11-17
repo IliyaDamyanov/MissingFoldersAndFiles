@@ -23,10 +23,13 @@ namespace MissingFoldersAndFiles
             {
                 if (!copiedPathsHashTable.ContainsKey(path))
                 {
-                    TxtWriter txtWriter = new TxtWriter();
+                    IWriter txtWriter = new FileWriter();
                     txtWriter.Write(path);
                 }
             }
+
+            InnerPathDuplicationCleaner innerPathDuplicationCleaner = new InnerPathDuplicationCleaner();
+            innerPathDuplicationCleaner.Clean();
         }
     }
 }

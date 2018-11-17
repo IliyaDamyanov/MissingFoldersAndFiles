@@ -42,11 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InnerPathDuplicationCleaner.cs" />
+    <Compile Include="IReader.cs" />
     <Compile Include="IWriter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FolderStructure.cs" />
-    <Compile Include="TxtWriter.cs" />
+    <Compile Include="FileReader.cs" />
+    <Compile Include="FileWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
