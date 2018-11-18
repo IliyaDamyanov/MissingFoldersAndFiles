@@ -26,20 +26,20 @@ namespace MissingFoldersAndFiles
         private string SeparatingPreFolderPath()
         {
             int lastSlashIndex = this.originalPath.LastIndexOf('\\');
-            string originalPreFolderPath = this.originalPath.Substring(0, lastSlashIndex);
+            string originalPreFolderPath = this.originalPath.Substring(0, lastSlashIndex + 1);
 
             return originalPreFolderPath;
         }
 
         public void Start()
         {
-            FolderStructure originalStructure = new FolderStructure(this.consoleWriter,this.preFolderPath.Length);
+            FolderStructure originalStructure = new FolderStructure(this.consoleWriter, this.preFolderPath.Length);
             ICollection<string> originalPaths = originalStructure.AllPathsFinder(this.originalPath).Keys;
 
-            FolderStructure copiedStructure = new FolderStructure(this.consoleWriter,this.preFolderPath.Length);
+            FolderStructure copiedStructure = new FolderStructure(this.consoleWriter, this.preFolderPath.Length);
             IDictionary<string, string> copiedPaths = copiedStructure.AllPathsFinder(this.copiedPath);
 
-            MissingPathsFinder missingPathsFinder = new MissingPathsFinder(this.fileWriter, originalPaths, copiedPaths,this.preFolderPath);
+            MissingPathsFinder missingPathsFinder = new MissingPathsFinder(this.fileWriter, originalPaths, copiedPaths, this.preFolderPath);
             missingPathsFinder.MissingPathsPrint();
         }
     }

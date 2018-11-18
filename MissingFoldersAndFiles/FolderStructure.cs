@@ -21,16 +21,16 @@ namespace MissingFoldersAndFiles
         public IDictionary<string, string> AllPathsFinder(string entryFolder)
         {
             string currentFolder = entryFolder;
+            int lastSlashIndex = currentFolder.LastIndexOf('\\');
 
             try
             {
                 foreach (string folder in Directory.GetDirectories(currentFolder))
                 {
-                    int lastSlashIndex = currentFolder.LastIndexOf('\\');
-                    paths.Add(folder.Substring(lastSlashIndex, this.preFolderPathLenght - 1), "folder");
+                    paths.Add(folder.Substring(lastSlashIndex + 1, folder.Length - lastSlashIndex - 1), "folder");
                     foreach (string file in Directory.GetFiles(folder))
                     {
-                        paths.Add(file.Substring(lastSlashIndex, this.preFolderPathLenght - 1), "file");
+                        paths.Add(file.Substring(lastSlashIndex + 1, file.Length - lastSlashIndex - 1), "file");
                     }
                     AllPathsFinder(folder);
                 }
